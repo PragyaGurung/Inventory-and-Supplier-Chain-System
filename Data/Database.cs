@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Inventory_and_Supplier_Chain_System.Models
+namespace Inventory_and_Supplier_Chain_System.Data
 {
-    internal class Product
+    internal class Database
     {
-
     }
 }
