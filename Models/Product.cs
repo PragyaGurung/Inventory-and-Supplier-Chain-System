@@ -6,5 +6,6 @@ namespace Inventory_and_Supplier_Chain_System.Models
 {
     internal class Product
     {
+        
     }
 }
