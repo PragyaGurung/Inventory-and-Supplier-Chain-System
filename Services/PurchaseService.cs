@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Inventory_and_Supplier_Chain_System.Services
 {
-    internal class PurchaseService
+    public class PurchaseService
     {
     }
 }

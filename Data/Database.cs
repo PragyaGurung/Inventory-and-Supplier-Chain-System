@@ -24,7 +24,7 @@ namespace Inventory_and_Supplier_Chain_System.Data
                 //        ServerVersion.AutoDetect("Server=localhost;Database=SMSdB;" User=Sudikshya; Password =; ")
                 //
 
-                @"Server=ASUS; Database=EFCoreDemoDB1;Trusted_Connection=True;TrustServerCertificate=True;");
+                @"Server=ASUS; Database=Inventory-and-Suppliers;Trusted_Connection=True;TrustServerCertificate=True;");
         }
 
     }
