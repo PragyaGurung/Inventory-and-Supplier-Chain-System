@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Inventory_and_Supplier_Chain_System.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -21,6 +22,43 @@ namespace Inventory_and_Supplier_Chain_System.Services
                 };
             }
 
+        }
+        public bool UpdateSupplier(Supplier supplier)
+        {
+            try
+            {
+                using (var connection = _database.GetConnection())
+                {
+                    connection.Open();
+                    string query = @"
+                    UPDATE Suppliers 
+                    SET Name = @Name, 
+                        ContactPerson = @ContactPerson, 
+                        Email = @Email, 
+                        Phone = @Phone, 
+                        Address = @Address, 
+                        IsActive = @IsActive
+                    WHERE Id = @Id";
+
+                    using (var command = new SqlServer(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Id", supplier.id);
+                        command.Parameters.AddWithValue("@Name", supplier.Name);
+                        command.Parameters.AddWithValue("@ContactPerson", supplier.ContactPerson);
+                        command.Parameters.AddWithValue("@Email", supplier.Email);
+                        command.Parameters.AddWithValue("@Phone", supplier.Phone);
+                        command.Parameters.AddWithValue("@Address", supplier.Address);
+                        command.Parameters.AddWithValue("@IsActive", supplier.IsActive);
+
+                        return command.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating supplier: {ex.Message}");
+                return false;
+            }
         }
     }
 }

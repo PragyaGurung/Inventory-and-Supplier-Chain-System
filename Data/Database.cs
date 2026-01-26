@@ -13,7 +13,7 @@ namespace Inventory_and_Supplier_Chain_System.Data
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
-        public DbSet<Purchase> Purchases { get; set; }
+        public DbSet<Purchase> Purchases  { get; set; }
 
 
 
