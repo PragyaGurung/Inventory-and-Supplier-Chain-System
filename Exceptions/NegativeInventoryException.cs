@@ -1,10 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Inventory_and_Supplier_Chain_System.Exceptions
+namespace InventorySupplierChainSystem.Exceptions
 {
-    internal class NegativeInventoryException
+    /// <summary>
+    /// Custom exception for negative inventory scenarios
+    /// </summary>
+    public class NegativeInventoryException : InventoryException
     {
+        public NegativeInventoryException(string productName)
+            : base($"Cannot have negative inventory for product: {productName}") { }
     }
 }

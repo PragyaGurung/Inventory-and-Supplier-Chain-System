@@ -1,10 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Inventory_and_Supplier_Chain_System.Exceptions
+namespace InventorySupplierChainSystem.Exceptions
 {
-    internal class InventoryException
+    /// <summary>
+    /// Custom exception for inventory-related errors
+    /// </summary>
+    public class InventoryException : Exception
     {
+        public InventoryException(string message) : base(message) { }
+
+        public InventoryException(string message, Exception inner)
+            : base(message, inner) { }
     }
 }
