@@ -36,7 +36,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
                 _context.Suppliers.Add(supplier);
                 _context.SaveChanges();
 
-                Console.WriteLine($"✓ Supplier '{name}' added successfully!");
+                Console.WriteLine($"Supplier '{name}' added successfully!");
             }
             catch (Exception ex)
             {
@@ -96,7 +96,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
                     supplier.Phone = newPhone;
 
                 _context.SaveChanges();
-                Console.WriteLine($"✓ Supplier '{supplier.Name}' updated successfully!");
+                Console.WriteLine($" Supplier '{supplier.Name}' updated successfully!");
             }
             catch (Exception ex)
             {
@@ -130,7 +130,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
 
                 _context.Suppliers.Remove(supplier);
                 _context.SaveChanges();
-                Console.WriteLine($"✓ Supplier deleted successfully!");
+                Console.WriteLine($" Supplier deleted successfully!");
             }
             catch (Exception ex)
             {

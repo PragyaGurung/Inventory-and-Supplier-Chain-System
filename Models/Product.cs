@@ -1,7 +1,7 @@
-﻿using Inventory_and_Supplier_Chain_System.Models;
+﻿
 using System.ComponentModel.DataAnnotations;
 
-namespace InventorySupplierChainSystem.Models
+namespace Inventory_Supplier_Chain_System.Models
 {
     /// <summary>
     /// Represents a product in the inventory
