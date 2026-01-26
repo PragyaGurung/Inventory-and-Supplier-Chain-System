@@ -1,6 +1,5 @@
 ﻿using Inventory_and_Supplier_Chain_System.Data;
 using Inventory_and_Supplier_Chain_System.Exceptions;
-
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
