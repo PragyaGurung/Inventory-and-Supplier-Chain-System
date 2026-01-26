@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Inventory_Supplier_Chain_System.Models;
 
 namespace Inventory_and_Supplier_Chain_System.Services
 {
