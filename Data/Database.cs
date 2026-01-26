@@ -11,9 +11,9 @@ namespace Inventory_and_Supplier_Chain_System.Data
 {
     public class Database : DbContext
     {
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Supplier> Suppliers { get; set; }
-        public DbSet<Purchase> Purchases  { get; set; }
+        public DbSet<Product> products { get; set; }
+        public DbSet<Supplier> suppliers { get; set; }
+        public DbSet<Purchase> purchases { get; set; }
 
 
 
