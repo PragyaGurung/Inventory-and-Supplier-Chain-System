@@ -3,9 +3,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Inventory_Supplier_Chain_System.Models
 {
-    /// <summary>
-    /// Represents a product in the inventory
-    /// </summary>
     public class Product
     {
         [Key]
@@ -27,7 +24,7 @@ namespace Inventory_Supplier_Chain_System.Models
         [Required]
         public int SupplierId { get; set; }
 
-        // Navigation property
+        // navigating property
         public Supplier Supplier { get; set; }
     }
 }

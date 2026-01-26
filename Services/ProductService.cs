@@ -9,9 +9,6 @@ using System.Linq;
 
 namespace Inventory_and_Supplier_Chain_System.Services
 {
-    /// <summary>
-    /// Service class for Product-related operations
-    /// </summary>
     public class ProductService
     {
         private readonly InventoryContext _context;
@@ -21,15 +18,45 @@ namespace Inventory_and_Supplier_Chain_System.Services
             _context = context;
         }
 
-        /// <summary>
-        /// Add a new product to inventory (CREATE)
-        /// </summary>
         public void AddProduct(string name, string description, decimal price,
             int quantity, int supplierId)
         {
             try
             {
-                // Validate supplier exists
+
+                // Input validation
+                if (string.IsNullOrWhiteSpace(name))
+                {
+                    throw new InventoryException("Product name cannot be empty.");
+                }
+
+                if (name.Length > 100)
+                {
+                    throw new InventoryException("Product name cannot exceed 100 characters.");
+                }
+
+                if (string.IsNullOrWhiteSpace(description))
+                {
+                    throw new InventoryException("Product description cannot be empty.");
+                }
+
+                if (description.Length > 500)
+                {
+                    throw new InventoryException("Product description cannot exceed 500 characters.");
+                }
+
+                if (price <= 0)
+                {
+                    throw new InventoryException("Product price must be greater than zero.");
+                }
+
+                if (quantity < 0)
+                {
+                    throw new InventoryException("Product quantity cannot be negative.");
+                }
+
+
+                // validating supplier exists
                 var supplier = _context.Suppliers.Find(supplierId);
                 if (supplier == null)
                 {
@@ -56,12 +83,9 @@ namespace Inventory_and_Supplier_Chain_System.Services
             }
         }
 
-        /// <summary>
-        /// Display all products (READ)
-        /// </summary>
         public void DisplayProducts()
         {
-            // LINQ query with joins
+            // LINQ query 
             var products = _context.Products
                 .Include(p => p.Supplier)
                 .OrderBy(p => p.Name)
@@ -74,6 +98,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
             }
 
             Console.WriteLine("\n========== INVENTORY ==========");
+
             Console.WriteLine($"{"ID",-5} {"Product Name",-20} {"Price",-10} {"Stock",-8} {"Supplier",-15}");
             Console.WriteLine(new string('-', 70));
 
@@ -85,9 +110,6 @@ namespace Inventory_and_Supplier_Chain_System.Services
             }
         }
 
-        /// <summary>
-        /// Update product information (UPDATE)
-        /// </summary>
         public void UpdateProduct(int productId, decimal? newPrice = null,
             int? newQuantity = null)
         {
@@ -99,11 +121,25 @@ namespace Inventory_and_Supplier_Chain_System.Services
                     throw new InventoryException($"Product with ID {productId} not found");
                 }
 
+                // Validate and update price
                 if (newPrice.HasValue)
+                {
+                    if (newPrice.Value <= 0)
+                    {
+                        throw new InventoryException("Product price must be greater than zero.");
+                    }
                     product.Price = newPrice.Value;
+                }
 
+                // Validate and update quantity
                 if (newQuantity.HasValue)
+                {
+                    if (newQuantity.Value < 0)
+                    {
+                        throw new InventoryException("Product quantity cannot be negative.");
+                    }
                     product.StockQuantity = newQuantity.Value;
+                }
 
                 _context.SaveChanges();
                 Console.WriteLine($" Product '{product.Name}' updated successfully!");
@@ -114,9 +150,6 @@ namespace Inventory_and_Supplier_Chain_System.Services
             }
         }
 
-        /// <summary>
-        /// Delete a product (DELETE)
-        /// </summary>
         public void DeleteProduct(int productId)
         {
             try
@@ -137,9 +170,6 @@ namespace Inventory_and_Supplier_Chain_System.Services
             }
         }
 
-        /// <summary>
-        /// Update stock quantity for a product
-        /// </summary>
         public void UpdateStock(int productId, int quantityChange)
         {
             var product = _context.Products.Find(productId);
@@ -148,10 +178,10 @@ namespace Inventory_and_Supplier_Chain_System.Services
                 throw new InventoryException($"Product with ID {productId} not found");
             }
 
-            // Auto-update stock
+            // auto-updating stock
             product.StockQuantity += quantityChange;
 
-            // Prevent negative inventory
+            // preventing negative inventory
             if (product.StockQuantity < 0)
             {
                 throw new NegativeInventoryException(product.Name);
@@ -160,17 +190,12 @@ namespace Inventory_and_Supplier_Chain_System.Services
             _context.SaveChanges();
         }
 
-        /// <summary>
-        /// Get product by ID
-        /// </summary>
         public Product GetProductById(int productId)
         {
             return _context.Products.Find(productId);
         }
 
-        /// <summary>
-        /// Display low stock products (filtering)
-        /// </summary>
+
         public void ShowLowStockProducts(int threshold = 10)
         {
             var lowStock = _context.Products
@@ -193,9 +218,6 @@ namespace Inventory_and_Supplier_Chain_System.Services
             }
         }
 
-        /// <summary>
-        /// Get all products for a specific supplier
-        /// </summary>
         public List<Product> GetProductsBySupplier(int supplierId)
         {
             return _context.Products

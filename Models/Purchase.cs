@@ -3,9 +3,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Inventory_Supplier_Chain_System.Models
 {
-    /// <summary>
-    /// Represents a purchase transaction
-    /// </summary>
     public class Purchase
     {
         [Key]
@@ -23,7 +20,7 @@ namespace Inventory_Supplier_Chain_System.Models
         [Required]
         public decimal TotalAmount { get; set; }
 
-        // Navigation property
+        // navigating property
         public Product Product { get; set; }
     }
 }

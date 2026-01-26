@@ -9,9 +9,6 @@ using System.Linq;
 
 namespace Inventory_and_Supplier_Chain_System.Services
 {
-    /// <summary>
-    /// Service class for Purchase-related operations
-    /// </summary>
     public class PurchaseService
     {
         private readonly InventoryContext _context;
@@ -23,9 +20,6 @@ namespace Inventory_and_Supplier_Chain_System.Services
             _productService = productService;
         }
 
-        /// <summary>
-        /// Process a purchase and auto-update stock (Feature requirement)
-        /// </summary>
         public void ProcessPurchase(int productId, int quantity)
         {
             try
@@ -36,10 +30,10 @@ namespace Inventory_and_Supplier_Chain_System.Services
                     throw new InventoryException($"Product with ID {productId} not found");
                 }
 
-                // Update stock using ProductService
+                // updating stock using ProductService
                 _productService.UpdateStock(productId, quantity);
 
-                // Record purchase
+                // recording purchase
                 var purchase = new Purchase
                 {
                     ProductId = productId,
@@ -50,8 +44,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
 
                 _context.Purchases.Add(purchase);
                 _context.SaveChanges();
-
-                // Get updated stock
+             
                 var updatedProduct = _productService.GetProductById(productId);
                 Console.WriteLine($" Purchase processed! New stock: {updatedProduct.StockQuantity}");
             }
@@ -65,9 +58,6 @@ namespace Inventory_and_Supplier_Chain_System.Services
             }
         }
 
-        /// <summary>
-        /// Display all purchases (READ)
-        /// </summary>
         public void DisplayPurchases()
         {
             var purchases = _context.Purchases
@@ -93,9 +83,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
             }
         }
 
-        /// <summary>
-        /// Get purchases for a specific product
-        /// </summary>
+
         public List<Purchase> GetPurchasesByProduct(int productId)
         {
             return _context.Purchases
@@ -104,9 +92,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
                 .ToList();
         }
 
-        /// <summary>
-        /// Get purchase statistics
-        /// </summary>
+
         public void ShowPurchaseStatistics()
         {
             var stats = _context.Purchases

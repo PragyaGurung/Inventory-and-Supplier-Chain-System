@@ -5,9 +5,6 @@ using Microsoft.EntityFrameworkCore.Sqlite;
 
 namespace Inventory_and_Supplier_Chain_System.Data
 {
-    /// <summary>
-    /// Entity Framework Core DbContext for database operations
-    /// </summary>
     public class InventoryContext : DbContext
     {
         public DbSet<Product> Products { get; set; }
@@ -15,14 +12,13 @@ namespace Inventory_and_Supplier_Chain_System.Data
         public DbSet<Purchase> Purchases { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            // Using SQLite for simplicity (Code-First Approach)
+        {         
             optionsBuilder.UseSqlite("Data Source=inventory.db");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Configure relationships
+            // configuring relationships
             modelBuilder.Entity<Product>()
                 .HasOne(p => p.Supplier)
                 .WithMany(s => s.Products)

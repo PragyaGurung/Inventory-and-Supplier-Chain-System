@@ -3,9 +3,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Inventory_Supplier_Chain_System.Models
 {
-    /// <summary>
-    /// Represents a supplier in the system
-    /// </summary>
     public class Supplier
     {
         [Key]
@@ -22,7 +19,7 @@ namespace Inventory_Supplier_Chain_System.Models
         [MaxLength(20)]
         public string Phone { get; set; }
 
-        // Navigation property - One-to-Many relationship
+        // one-to-many relationship
         public List<Product> Products { get; set; } = new List<Product>();
     }
 }

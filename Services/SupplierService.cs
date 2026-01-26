@@ -8,9 +8,6 @@ using Inventory_Supplier_Chain_System.Models;
 
 namespace Inventory_and_Supplier_Chain_System.Services
 {
-    /// <summary>
-    /// Service class for Supplier-related operations
-    /// </summary>
     public class SupplierService
     {
         private readonly InventoryContext _context;
@@ -20,13 +17,33 @@ namespace Inventory_and_Supplier_Chain_System.Services
             _context = context;
         }
 
-        /// <summary>
-        /// Add a new supplier to the system (CREATE)
-        /// </summary>
+
         public void AddSupplier(string name, string email, string phone)
         {
             try
             {
+
+                // Input validation
+                if (string.IsNullOrWhiteSpace(name))
+                {
+                    throw new InventoryException("Supplier name cannot be empty.");
+                }
+
+                if (name.Length > 100)
+                {
+                    throw new InventoryException("Supplier name cannot exceed 100 characters.");
+                }
+
+                if (!IsValidEmail(email))
+                {
+                    throw new InventoryException("Invalid email format. Please enter a valid email address.");
+                }
+
+                if (!IsValidPhone(phone))
+                {
+                    throw new InventoryException("Invalid phone number. Phone must be 10-15 digits and can include '+', '-', or spaces.");
+                }
+
                 var supplier = new Supplier
                 {
                     Name = name,
@@ -45,12 +62,39 @@ namespace Inventory_and_Supplier_Chain_System.Services
             }
         }
 
-        /// <summary>
-        /// Display all suppliers with their products (READ)
-        /// </summary>
+        private bool IsValidEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                return false;
+
+            try
+            {
+                // basic email validation using regex pattern
+                var emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+                return System.Text.RegularExpressions.Regex.IsMatch(email, emailPattern);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
+        private bool IsValidPhone(string phone)
+        {
+            if (string.IsNullOrWhiteSpace(phone))
+                return false;
+
+            // remove common phone number characters
+            string cleanPhone = phone.Replace("+", "").Replace("-", "").Replace(" ", "").Replace("(", "").Replace(")", "");
+
+            return cleanPhone.All(char.IsDigit) && cleanPhone.Length >= 10 && cleanPhone.Length <= 15;
+        }
+
+
         public void DisplaySuppliers()
         {
-            // LINQ query with Include for navigation properties
+            // LINQ query 
             var suppliers = _context.Suppliers
                 .Include(s => s.Products)
                 .OrderBy(s => s.Name)
@@ -73,9 +117,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
             }
         }
 
-        /// <summary>
-        /// Update supplier information (UPDATE)
-        /// </summary>
+
         public void UpdateSupplier(int supplierId, string newName = null,
             string newEmail = null, string newPhone = null)
         {
@@ -87,17 +129,39 @@ namespace Inventory_and_Supplier_Chain_System.Services
                     throw new InventoryException($"Supplier with ID {supplierId} not found");
                 }
 
+                // Validate and update name
                 if (!string.IsNullOrWhiteSpace(newName))
+                {
+                    if (newName.Length > 100)
+                    {
+                        throw new InventoryException("Supplier name cannot exceed 100 characters.");
+                    }
                     supplier.Name = newName;
+                }
 
+                // Validate and update email
                 if (!string.IsNullOrWhiteSpace(newEmail))
+                {
+                    if (!IsValidEmail(newEmail))
+                    {
+                        throw new InventoryException("Invalid email format. Please enter a valid email address.");
+                    }
                     supplier.ContactEmail = newEmail;
+                }
 
+                // Validate and update phone
                 if (!string.IsNullOrWhiteSpace(newPhone))
+                {
+                    if (!IsValidPhone(newPhone))
+                    {
+                        throw new InventoryException("Invalid phone number. Phone must be 10-15 digits and can include '+', '-', or spaces.");
+                    }
                     supplier.Phone = newPhone;
+                }
 
                 _context.SaveChanges();
-                Console.WriteLine($" Supplier '{supplier.Name}' updated successfully!");
+                Console.WriteLine($"✓ Supplier '{supplier.Name}' updated successfully!");
+
             }
             catch (Exception ex)
             {
@@ -105,9 +169,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
             }
         }
 
-        /// <summary>
-        /// Delete a supplier (DELETE)
-        /// </summary>
+
         public void DeleteSupplier(int supplierId)
         {
             try
@@ -121,7 +183,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
                     throw new InventoryException($"Supplier with ID {supplierId} not found");
                 }
 
-                // Check if supplier has products
+                // checking if supplier has products
                 if (supplier.Products.Any())
                 {
                     throw new InventoryException(
@@ -139,12 +201,9 @@ namespace Inventory_and_Supplier_Chain_System.Services
             }
         }
 
-        /// <summary>
-        /// Show supplier-wise stock value (Feature requirement)
-        /// </summary>
         public void ShowSupplierStockValue()
         {
-            // Complex LINQ query with grouping and projection
+           
             var supplierValues = _context.Products
                 .Include(p => p.Supplier)
                 .GroupBy(p => p.Supplier.Name)
@@ -171,17 +230,13 @@ namespace Inventory_and_Supplier_Chain_System.Services
             }
         }
 
-        /// <summary>
-        /// Get supplier by ID
-        /// </summary>
+
         public Supplier GetSupplierById(int supplierId)
         {
             return _context.Suppliers.Find(supplierId);
         }
 
-        /// <summary>
-        /// Get all suppliers
-        /// </summary>
+
         public List<Supplier> GetAllSuppliers()
         {
             return _context.Suppliers.OrderBy(s => s.Name).ToList();
