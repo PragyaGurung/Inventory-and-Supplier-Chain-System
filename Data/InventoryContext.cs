@@ -1,4 +1,4 @@
-﻿using Inventory_and_Supplier_Chain_System.Models;
+﻿using Inventory_Supplier_Chain_System.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using Microsoft.EntityFrameworkCore.Sqlite;
