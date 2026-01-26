@@ -1,10 +1,15 @@
+<<<<<<< HEAD
 ﻿using Inventory_and_Supplier_Chain_System.Models;
+=======
+﻿using Inventory_and_Supplier_Chain_System.Data;
+>>>>>>> 547e0a306327490fb41f2b408d605a0807fc016c
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Inventory_and_Supplier_Chain_System.Services
 {
+<<<<<<< HEAD
     public class InventoryService
     {
         public bool UpdateProduct(Product product)
@@ -44,6 +49,12 @@ namespace Inventory_and_Supplier_Chain_System.Services
                 return false;
             }
         }
+=======
+    public class InventoryService 
+    {
+    
+>>>>>>> 547e0a306327490fb41f2b408d605a0807fc016c
 
     }
+   
 }
