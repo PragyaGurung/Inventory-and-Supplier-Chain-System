@@ -1,13 +1,17 @@
-﻿using Inventory_and_Supplier_Chain_System.Models;
+
+using Inventory_and_Supplier_Chain_System.Models;
+﻿using Inventory_and_Supplier_Chain_System.Data;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Data.SQLite;
 
 namespace Inventory_and_Supplier_Chain_System.Services
 {
+
     public class InventoryService
     {
-        private object _database;
+        
 
         public bool UpdateProduct(Product product)
         {
@@ -26,7 +30,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
                         LastUpdated = @LastUpdated
                     WHERE Id = @Id";
 
-                    using (var command = new SqlServer(query, connection))
+                    using (var command = new SQLiteCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@Id", product.Id);
                         command.Parameters.AddWithValue("@Name", product.Name);

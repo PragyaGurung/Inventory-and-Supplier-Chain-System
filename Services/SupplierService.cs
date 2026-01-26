@@ -1,7 +1,9 @@
 ﻿using Inventory_and_Supplier_Chain_System.Models;
 using System;
+using System.Data.SQLite;
 using System.Collections.Generic;
 using System.Text;
+using Inventory_and_Supplier_Chain_System.Data;
 
 namespace Inventory_and_Supplier_Chain_System.Services
 {
@@ -40,7 +42,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
                         IsActive = @IsActive
                     WHERE Id = @Id";
 
-                    using (var command = new SqlServer(query, connection))
+                    using (var command = new SQLiteCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@Id", supplier.id);
                         command.Parameters.AddWithValue("@Name", supplier.Name);
