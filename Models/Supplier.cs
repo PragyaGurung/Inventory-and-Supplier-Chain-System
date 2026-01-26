@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Inventory_and_Supplier_Chain_System.Models
+namespace Inventory_Supplier_Chain_System.Models
 {
     /// <summary>
     /// Represents a supplier in the system

@@ -53,7 +53,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
 
                 // Get updated stock
                 var updatedProduct = _productService.GetProductById(productId);
-                Console.WriteLine($"✓ Purchase processed! New stock: {updatedProduct.StockQuantity}");
+                Console.WriteLine($" Purchase processed! New stock: {updatedProduct.StockQuantity}");
             }
             catch (NegativeInventoryException)
             {

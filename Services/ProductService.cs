@@ -1,7 +1,7 @@
 using Inventory_and_Supplier_Chain_System.Data;
 using Inventory_and_Supplier_Chain_System.Exceptions;
 
-using InventorySupplierChainSystem.Models;
+using Inventory_Supplier_Chain_System.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -48,7 +48,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
                 _context.Products.Add(product);
                 _context.SaveChanges();
 
-                Console.WriteLine($"✓ Product '{name}' added successfully!");
+                Console.WriteLine($"Product '{name}' added successfully!");
             }
             catch (Exception ex)
             {
@@ -106,7 +106,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
                     product.StockQuantity = newQuantity.Value;
 
                 _context.SaveChanges();
-                Console.WriteLine($"✓ Product '{product.Name}' updated successfully!");
+                Console.WriteLine($" Product '{product.Name}' updated successfully!");
             }
             catch (Exception ex)
             {
@@ -129,7 +129,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
 
                 _context.Products.Remove(product);
                 _context.SaveChanges();
-                Console.WriteLine($"✓ Product deleted successfully!");
+                Console.WriteLine($" Product deleted successfully!");
             }
             catch (Exception ex)
             {
@@ -188,7 +188,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
             Console.WriteLine($"\n========== LOW STOCK ALERT (< {threshold}) ==========");
             foreach (var product in lowStock)
             {
-                Console.WriteLine($"⚠ {product.Name}: {product.StockQuantity} units " +
+                Console.WriteLine($" {product.Name}: {product.StockQuantity} units " +
                     $"(Supplier: {product.Supplier.Name})");
             }
         }
