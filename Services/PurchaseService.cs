@@ -30,6 +30,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
                     throw new InventoryException($"Product with ID {productId} not found");
                 }
 
+
                 // updating stock using ProductService
                 _productService.UpdateStock(productId, quantity);
 

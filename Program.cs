@@ -238,7 +238,7 @@ namespace Inventory_and_Supplier_Chain_System
             Console.Write("Product ID: ");
             int productId = int.Parse(Console.ReadLine());
 
-            Console.Write("Quantity (use negative for sales): ");
+            Console.Write("Quantity: ");
             int quantity = int.Parse(Console.ReadLine());
 
             service.ProcessPurchase(productId, quantity);

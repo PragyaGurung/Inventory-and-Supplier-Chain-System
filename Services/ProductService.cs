@@ -170,7 +170,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
             }
         }
 
-        public void UpdateStock(int productId, int quantityChange)
+        public void UpdateStock(int productId, int quantityPurchased)
         {
             var product = _context.Products.Find(productId);
             if (product == null)
@@ -179,7 +179,8 @@ namespace Inventory_and_Supplier_Chain_System.Services
             }
 
             // auto-updating stock
-            product.StockQuantity += quantityChange;
+            product.StockQuantity -= quantityPurchased;
+
 
             // preventing negative inventory
             if (product.StockQuantity < 0)
