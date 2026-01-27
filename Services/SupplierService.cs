@@ -226,7 +226,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
                 Console.WriteLine($"{supplier.SupplierName,-20} " +
                     $"{supplier.TotalProducts,-10} " +
                     $"{supplier.TotalQuantity,-10} " +
-                    $"${supplier.TotalStockValue,-14:F2}");
+                    $"RS{supplier.TotalStockValue,-14:F2}");
             }
         }
 
