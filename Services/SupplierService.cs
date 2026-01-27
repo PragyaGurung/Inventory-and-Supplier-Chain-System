@@ -92,7 +92,31 @@ namespace Inventory_and_Supplier_Chain_System.Services
         }
 
 
-        
+        public void DisplaySuppliers()
+        {
+            // LINQ query 
+            var suppliers = _context.Suppliers
+                .Include(s => s.Products)
+                .OrderBy(s => s.Name)
+                .ToList();
+
+            if (!suppliers.Any())
+            {
+                Console.WriteLine("No suppliers found.");
+                return;
+            }
+
+            Console.WriteLine("\n========== SUPPLIERS ==========");
+            foreach (var supplier in suppliers)
+            {
+                Console.WriteLine($"\nSupplier ID: {supplier.SupplierId}");
+                Console.WriteLine($"Name: {supplier.Name}");
+                Console.WriteLine($"Email: {supplier.ContactEmail}");
+                Console.WriteLine($"Phone: {supplier.Phone}");
+                Console.WriteLine($"Products Count: {supplier.Products.Count}");
+            }
+        }
+
 
 
         public void UpdateSupplier(int supplierId, string newName = null,
@@ -146,8 +170,37 @@ namespace Inventory_and_Supplier_Chain_System.Services
             }
         }
 
+        public void DeleteSupplier(int supplierId)
+        {
+            try
+            {
+                var supplier = _context.Suppliers
+                    .Include(s => s.Products)
+                    .FirstOrDefault(s => s.SupplierId == supplierId);
 
-        
+                if (supplier == null)
+                {
+                    throw new InventoryException($"Supplier with ID {supplierId} not found");
+                }
+
+                // checking if supplier has products
+                if (supplier.Products.Any())
+                {
+                    throw new InventoryException(
+                        $"Cannot delete supplier '{supplier.Name}' because they have {supplier.Products.Count} product(s). " +
+                        "Please reassign or delete products first.");
+                }
+
+                _context.Suppliers.Remove(supplier);
+                _context.SaveChanges();
+                Console.WriteLine($" Supplier deleted successfully!");
+            }
+            catch (Exception ex)
+            {
+                throw new InventoryException("Error deleting supplier", ex);
+            }
+        }
+
 
         public void ShowSupplierStockValue()
         {
