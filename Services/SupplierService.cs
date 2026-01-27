@@ -23,7 +23,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
             try
             {
 
-                // Input validation
+                // input validation
                 if (string.IsNullOrWhiteSpace(name))
                 {
                     throw new InventoryException("Supplier name cannot be empty.");
@@ -85,7 +85,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
             if (string.IsNullOrWhiteSpace(phone))
                 return false;
 
-            // remove common phone number characters
+            // removing common phone number characters
             string cleanPhone = phone.Replace("+", "").Replace("-", "").Replace(" ", "").Replace("(", "").Replace(")", "");
 
             return cleanPhone.All(char.IsDigit) && cleanPhone.Length >= 10 && cleanPhone.Length <= 15;
@@ -129,7 +129,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
                     throw new InventoryException($"Supplier with ID {supplierId} not found");
                 }
 
-                // Validate and update name
+                // validating and updating name
                 if (!string.IsNullOrWhiteSpace(newName))
                 {
                     if (newName.Length > 100)
@@ -139,7 +139,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
                     supplier.Name = newName;
                 }
 
-                // Validate and update email
+                // validating and updating email
                 if (!string.IsNullOrWhiteSpace(newEmail))
                 {
                     if (!IsValidEmail(newEmail))
@@ -149,7 +149,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
                     supplier.ContactEmail = newEmail;
                 }
 
-                // Validate and update phone
+                // validating and updating phone
                 if (!string.IsNullOrWhiteSpace(newPhone))
                 {
                     if (!IsValidPhone(newPhone))

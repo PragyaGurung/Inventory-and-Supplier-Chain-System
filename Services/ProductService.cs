@@ -105,7 +105,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
             foreach (var product in products)
             {
                 Console.WriteLine($"{product.ProductId,-5} {product.Name,-20} " +
-                    $"${product.Price,-9:F2} {product.StockQuantity,-8} " +
+                    $"RS{product.Price,-9:F2} {product.StockQuantity,-8} " +
                     $"{product.Supplier.Name,-15}");
             }
         }
@@ -121,7 +121,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
                     throw new InventoryException($"Product with ID {productId} not found");
                 }
 
-                // Validate and update price
+                // validating and updating price
                 if (newPrice.HasValue)
                 {
                     if (newPrice.Value <= 0)
@@ -131,7 +131,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
                     product.Price = newPrice.Value;
                 }
 
-                // Validate and update quantity
+                // validating and updating quantity
                 if (newQuantity.HasValue)
                 {
                     if (newQuantity.Value < 0)
