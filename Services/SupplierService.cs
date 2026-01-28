@@ -58,7 +58,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
             }
             catch (Exception ex)
             {
-                throw new InventoryException("Error adding supplier", ex);
+                Console.WriteLine(ex.Message);
             }
         }
 
@@ -161,12 +161,12 @@ namespace Inventory_and_Supplier_Chain_System.Services
                 }
 
                 _context.SaveChanges();
-                Console.WriteLine($"✓ Supplier '{supplier.Name}' updated successfully!");
+                Console.WriteLine($"Supplier '{supplier.Name}' updated successfully!");
 
             }
             catch (Exception ex)
             {
-                throw new InventoryException("Error updating supplier", ex);
+                Console.WriteLine(ex.Message);
             }
         }
 
@@ -197,7 +197,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
             }
             catch (Exception ex)
             {
-                throw new InventoryException("Error deleting supplier", ex);
+                Console.WriteLine(ex.Message);
             }
         }
 

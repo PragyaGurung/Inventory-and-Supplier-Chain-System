@@ -30,7 +30,12 @@ namespace Inventory_and_Supplier_Chain_System.Services
                     throw new InventoryException($"Product with ID {productId} not found");
                 }
 
-
+                // validate quantity
+                    if (quantity <0)
+                    {
+                        throw new InventoryException("Product purchase cannot be negative.");
+                    }
+            
                 // updating stock using ProductService
                 _productService.UpdateStock(productId, quantity);
 
@@ -49,13 +54,13 @@ namespace Inventory_and_Supplier_Chain_System.Services
                 var updatedProduct = _productService.GetProductById(productId);
                 Console.WriteLine($" Purchase processed! New stock: {updatedProduct.StockQuantity}");
             }
-            catch (NegativeInventoryException)
+            catch (NegativeInventoryException ne)
             {
-                throw;
+                Console.WriteLine(ne.Message);
             }
             catch (Exception ex)
             {
-                throw new InventoryException("Error processing purchase", ex);
+                Console.WriteLine(ex.Message);
             }
         }
 

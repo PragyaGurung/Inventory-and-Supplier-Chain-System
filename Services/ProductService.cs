@@ -79,7 +79,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
             }
             catch (Exception ex)
             {
-                throw new InventoryException("Error adding product", ex);
+                Console.WriteLine(ex.Message);
             }
         }
 
@@ -146,7 +146,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
             }
             catch (Exception ex)
             {
-                throw new InventoryException("Error updating product", ex);
+                Console.WriteLine(ex.Message);
             }
         }
 
@@ -166,7 +166,7 @@ namespace Inventory_and_Supplier_Chain_System.Services
             }
             catch (Exception ex)
             {
-                throw new InventoryException("Error deleting product", ex);
+                Console.WriteLine(ex.Message);
             }
         }
 
